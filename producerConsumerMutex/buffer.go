@@ -13,7 +13,7 @@ type Buffer struct {
 // NewBuffer creates a new buffer
 func NewBuffer() *Buffer {
 	buff := &Buffer{data: make([]int, 0)}
-	buff.cond = *sync.NewCond(&buff.mu)
+	buff.cond.L = &buff.mu
 	return buff
 }
 
@@ -23,7 +23,6 @@ func (b *Buffer) Send(i int) {
 	defer b.mu.Unlock()
 
 	b.data = append(b.data, i)
-
 	b.cond.Signal()
 }
 
