@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	log "github.com/Sirupsen/logrus"
+)
 
 // Consumer definition
 type Consumer struct {
@@ -14,8 +16,9 @@ func NewConsumer(msgs *chan int) *Consumer {
 
 // consume reads the msgs channel
 func (c *Consumer) consume() {
+	log.Info("consume: Started")
 	for {
 		msg := <-*c.msgs
-		fmt.Printf("consume: Received %d\n", msg)
+		log.Info("consume: Received:", msg)
 	}
 }

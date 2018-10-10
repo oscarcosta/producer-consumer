@@ -1,8 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"sync"
+
+	log "github.com/Sirupsen/logrus"
 )
 
 // Consumer definition
@@ -18,9 +19,10 @@ func NewConsumer(buff *Buffer, wg *sync.WaitGroup) *Consumer {
 
 // consume reads the msgs channel
 func (c *Consumer) consume() {
+	log.Info("consume: Started")
 	for {
 		data := c.buff.Next()
-		fmt.Printf("consume: Received %d\n", data)
+		log.Info("consume: Received ", data)
 		c.wg.Done() // decrements the "done counter"
 	}
 }

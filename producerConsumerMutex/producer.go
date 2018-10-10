@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	log "github.com/Sirupsen/logrus"
 )
 
 // Producer definition
@@ -16,9 +16,10 @@ func NewProducer(buff *Buffer) *Producer {
 
 // produce creates and sends the message through msgs channel
 func (p *Producer) produce(max int) {
+	log.Info("produce: Started")
 	for i := 0; i < max; i++ {
 		//time.Sleep(10 * time.Millisecond)
-		fmt.Printf("produce: Sending %d\n", i)
+		log.Info("produce: Sending ", i)
 		p.buff.Send(i)
 	}
 }

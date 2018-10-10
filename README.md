@@ -1,1 +1,1 @@
-# Producer-Consumer problem
+# Producer-Consumer problem in Go

@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	log "github.com/Sirupsen/logrus"
+)
 
 // Producer definition
 type Producer struct {
@@ -15,9 +17,11 @@ func NewProducer(msgs *chan int, done *chan bool) *Producer {
 
 // produce creates and sends the message through msgs channel
 func (p *Producer) produce(max int) {
+	log.Info("produce: Started")
 	for i := 0; i < max; i++ {
-		fmt.Printf("produce: Sending %d\n", i)
+		log.Info("produce: Sending ", i)
 		*p.msgs <- i
 	}
 	*p.done <- true // signal when done
+	log.Info("produce: Done")
 }
